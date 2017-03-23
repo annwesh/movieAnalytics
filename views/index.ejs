@@ -1,0 +1,87 @@
+<! DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+    <html>
+
+        <head>
+         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+
+
+      
+
+        </head>
+
+        <body >
+        <div class="bg"></div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+             
+        <link rel="stylesheet" type="text/css" href="css/stylesheets/style.css">
+        
+
+
+        <div >
+           <!--  <img class="responsive-img" src="/css/images/background.jpg"> -->
+             <form action="users" id="form1" onSubmit="return doThis()">
+             	    Name: <input type="text" name="name">
+             	    Age : <input type="text" name="age">
+             	    <input class="waves-effect waves-light btn" type="submit" value="submit">
+             </form>
+        <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+
+             <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">textsms</i>
+          <input type="text" id="autocomplete-input" class="autocomplete">
+          <label for="autocomplete-input">Autocomplete</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+              <script type="text/javascript">
+            
+
+            var score=0;
+            $("#autocomplete-input").keyup(function(){
+                if(score==0){
+                $.ajax({
+                     url: "/searchResults",
+                     type: "get", //send it through get method
+                     data: { 
+                     inputData:$("#autocomplete-input").val(), 
+                     //UserID: UserID, 
+                     //EmailAddress: EmailAddress
+                        },
+                    success: function(tdata) {
+                        //Do Something
+                        /*console.log(tdata);
+                        tdata={
+                                    "chika":"yes"
+                                };
+                        console.log(tdata);*/
+                        $('input.autocomplete').autocomplete({
+                                data:tdata,
+                                limit: 20 // The max amount of results that can be shown at once. Default: Infinity.
+                         });
+                     },
+                    error: function(xhr) {
+                        //Do Something to handle error
+                        console.log(xhr);
+                        Materialize.toast('Autocomplete feature not working temporarily!!',1000);
+                    }
+                });
+             }if(score==10)score=0;
+            else score++;
+                $("form")[0].reset();
+            });
+        </script>
+        </body>
+
+
+     </html> 
